@@ -921,6 +921,28 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./src/js/helpers/modalHelper.js":
+/*!***************************************!*\
+  !*** ./src/js/helpers/modalHelper.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function modalJump(pos) {
+  if (pos) {
+    var scrollTab = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.marginRight = scrollTab + 'px';
+  } else {
+    document.body.style.marginRight = 0;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (modalJump);
+
+/***/ }),
+
 /***/ "./src/js/main.js":
 /*!************************!*\
   !*** ./src/js/main.js ***!
@@ -933,8 +955,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
 
 window.addEventListener('load', function () {
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])('.button-design', '.popup-design', '.popup-close');
-  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])('.button-consultation', '.popup-consultation', '.popup-close');
+  Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
 });
 
 /***/ }),
@@ -950,44 +971,59 @@ window.addEventListener('load', function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_modalHelper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/modalHelper */ "./src/js/helpers/modalHelper.js");
 
 
-var modals = function modals(openBtn, popup, closeBtn) {
-  var open = document.querySelectorAll(openBtn),
-      modal = document.querySelector(popup),
-      close = modal.querySelector(closeBtn); // const a = modalJump();
 
-  open.forEach(function (item) {
-    item.addEventListener('click', function (e) {
-      e.preventDefault();
-      modal.style.display = 'flex';
-      modalJump(true);
-      document.body.style.overflow = 'hidden'; // console.log(a);
-      // document.body.style.paddingRight = a + 'px';
-      // console.log(document.body.style.paddingRight)
+var modals = function modals() {
+  var keyPressed = false;
+
+  function openByScroll(selector) {
+    window.addEventListener('scroll', function () {
+      if (!keyPressed && window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+        document.querySelector(selector).click();
+        keyPressed = true;
+      }
     });
-  });
-  modal.addEventListener('click', function (e) {
-    if (e.target == modal) {
+  }
+
+  var modals2 = function modals2(openBtn, popup, closeBtn) {
+    var remove = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+    var open = document.querySelectorAll(openBtn),
+        modal = document.querySelector(popup),
+        close = modal.querySelector(closeBtn);
+    open.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        if (remove) {
+          item.remove();
+        }
+
+        keyPressed = true;
+        modal.style.display = 'flex';
+        Object(_helpers_modalHelper__WEBPACK_IMPORTED_MODULE_1__["default"])(true);
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    modal.addEventListener('click', function (e) {
+      if (e.target == modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+        Object(_helpers_modalHelper__WEBPACK_IMPORTED_MODULE_1__["default"])();
+      }
+    });
+    close.addEventListener('click', function () {
       modal.style.display = 'none';
       document.body.style.overflow = '';
-      modalJump();
-    }
-  });
-  close.addEventListener('click', function () {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-    modalJump();
-  });
+      Object(_helpers_modalHelper__WEBPACK_IMPORTED_MODULE_1__["default"])();
+    });
+  };
 
-  function modalJump(pos) {
-    if (pos) {
-      var scrollTab = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.marginRight = scrollTab + 'px';
-    } else {
-      document.body.style.marginRight = 0;
-    }
-  }
+  modals2('.button-design', '.popup-design', '.popup-close');
+  modals2('.button-consultation', '.popup-consultation', '.popup-close');
+  modals2('.fixed-gift', '.popup-gift', '.popup-close', true);
+  openByScroll('.fixed-gift');
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
