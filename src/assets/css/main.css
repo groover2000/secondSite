@@ -419,6 +419,33 @@ h4 {
   margin-bottom: 7rem;
 }
 
+.slider {
+  overflow: hidden;
+}
+
+.main-slider {
+  height: 670px;
+  transition: all 1s;
+  align-items: center;
+
+}
+
+.main-slider-item {}
+
+.slider2 {
+  overflow: hidden;
+}
+
+.feedback-slider {
+  display: flex;
+  justify-content: flex-start;
+  transition: all 1s;
+}
+
+.feedback-slider-item {
+  min-width: 1150px;
+}
+
 .main-slider-btn {
   position: absolute;
   top: 50%;

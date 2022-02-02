@@ -953,9 +953,13 @@ function modalJump(pos) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
+/* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/slider */ "./src/js/modules/slider.js");
+
 
 window.addEventListener('load', function () {
   Object(_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  Object(_modules_slider__WEBPACK_IMPORTED_MODULE_1__["default"])('.main-slider', '.main-slider-item', 1, 3000, 1);
+  Object(_modules_slider__WEBPACK_IMPORTED_MODULE_1__["default"])('.feedback-slider', '.feedback-slider-item', 1, 3000, 2);
 });
 
 /***/ }),
@@ -1027,6 +1031,56 @@ var modals = function modals() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
+
+/***/ }),
+
+/***/ "./src/js/modules/slider.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/slider.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var slider = function slider(_slider, sliderItem, slidetoShow, delay) {
+  var dir = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
+  var position = 1;
+  var interval;
+  var container = document.querySelector(_slider),
+      slides = document.querySelectorAll(sliderItem),
+      elements = slides.length - 1,
+      slideheight = dir == 1 ? container.clientHeight / slidetoShow : container.clientWidth / slidetoShow;
+  console.log(slideheight);
+  console.log(slides);
+  slides.forEach(function (item) {
+    if (dir == 1) item.style.height = slideheight + 'px';else {
+      item.style.width = slideheight + 'px';
+    }
+  });
+
+  var startSlideShow = function startSlideShow() {
+    interval = setInterval(function () {
+      var slideScroll = slideheight * position;
+      console.log(slideScroll);
+      if (position >= elements) position = -1;
+      container.style.transform = dir == 1 ? "translateY(-".concat(slideScroll, "px)") : "translateX(-".concat(slideScroll, "px)");
+      position++;
+    }, delay);
+  };
+
+  startSlideShow();
+  container.addEventListener('mouseover', function (e) {
+    clearInterval(interval);
+  });
+  container.addEventListener('mouseout', startSlideShow);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (slider);
 
 /***/ })
 
