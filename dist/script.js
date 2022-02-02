@@ -1058,7 +1058,9 @@ var slider = function slider(_slider, sliderItem, slidetoShow, delay) {
   console.log(slideheight);
   console.log(slides);
   slides.forEach(function (item) {
-    if (dir == 1) item.style.height = slideheight + 'px';else {
+    if (dir == 1) {
+      item.style.height = slideheight + 'px';
+    } else {
       item.style.width = slideheight + 'px';
     }
   });

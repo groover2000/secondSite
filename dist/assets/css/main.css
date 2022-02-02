@@ -433,6 +433,7 @@ h4 {
 .main-slider-item {}
 
 .slider2 {
+  position: relative;
   overflow: hidden;
 }
 

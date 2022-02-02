@@ -11,8 +11,9 @@ const slider = (slider, sliderItem, slidetoShow, delay, dir = 1) => {
             
             
             slides.forEach((item) => {
-                if(dir == 1) item.style.height = slideheight + 'px';
-                else {
+                if(dir == 1) {
+                    item.style.height = slideheight + 'px';
+                }else {
                     item.style.width = slideheight + 'px';
                 }
             })
