@@ -468,6 +468,7 @@ h4 {
 }
 
 .main-next-btn {
+  z-index: 100;
   right: 0;
 }
 
