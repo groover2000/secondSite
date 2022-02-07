@@ -2,6 +2,12 @@ import postRequest from "../helpers/postRequest";
 
 const forms = () => {
 
+
+    const message = {
+        loading: 'ОТПРАВКА...',
+        good: 'ОТПРАВЛЕНО',
+        bad: 'ОШИБКА'
+    }
    const forms = document.forms;
    console.log(forms);
    
@@ -27,10 +33,41 @@ const forms = () => {
     }
        element.addEventListener('submit', async (e) => {
            e.preventDefault();
+
+           let status = document.createElement('div');
+           status.classList.add('animation')
+           let statusText = document.createTextNode(message.loading)
+           status.appendChild(statusText)
+           element.parentNode.appendChild(status);
+
+           element.style.display = 'none';
            const formData = new FormData(element);
-           formData.append('username', '123')
-           const a = await postRequest('assets/server.php', formData)
-           console.log(a)
+          
+           try {
+            const a = await postRequest('assets/server.php', formData)
+                if(a.ok) {
+                    statusText.textContent = message.good;
+                    const b = await a.text()
+                    console.log(b);
+                    setTimeout(() => {
+                        statusText.remove()
+                    }, 1000) 
+                }else {
+                    throw new Error('ERROR')
+                }
+                  
+           } catch (error) {
+               statusText.textContent = message.bad;
+               console.log(error);
+               setTimeout(() => {
+                   statusText.remove()
+               }, 1000)
+           } finally {
+            setTimeout(()=> {
+                element.style.display = 'block';
+            }, 1000)
+           }
+           
            
        })
        

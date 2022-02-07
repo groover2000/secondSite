@@ -11,4 +11,5 @@ window.addEventListener('load', () => {
     slider('.slider2','.feedback-slider', '.feedback-slider-item', 1, 3000, 2, '.main-next-btn');
     forms();
 
+
 })

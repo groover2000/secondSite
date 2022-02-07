@@ -4,9 +4,9 @@ const postRequest = async (url = '', data = {test: 'false'}) => {
         method: 'POST',
         body: data
     })
-    const result = await response.text()
-    console.log(response.status)
-    return result;
+  
+    return response
+   
 }
 
 export default postRequest

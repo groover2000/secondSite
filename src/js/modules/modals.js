@@ -30,6 +30,8 @@ const modals = () => {
                 }
                 keyPressed = true
                 modal.style.display = 'flex';
+                document.body.style.paddingRight = '20px'
+                document.body.style.overflow = 'hidden'
                 modalJump(true);
                 document.body.style.overflow = 'hidden';
                
@@ -39,6 +41,7 @@ const modals = () => {
             if(e.target == modal) {
                 modal.style.display = 'none';
                 document.body.style.overflow = ''
+                document.body.style.paddingRight = ''
                 modalJump();
                 
             }
@@ -46,6 +49,7 @@ const modals = () => {
         close.addEventListener('click', () => {
             modal.style.display = 'none';
             document.body.style.overflow = ''
+            document.body.style.paddingRight = ''
             modalJump();
             
         })

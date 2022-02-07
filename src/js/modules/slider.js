@@ -7,7 +7,7 @@ const slider = (wrapper, slider, sliderItem, slidetoShow, delay, dir = 1, btnPre
             slides = document.querySelectorAll(sliderItem),
             elements = slides.length -1,
             slideheight = dir == 1? container.clientHeight / slidetoShow: container.clientWidth / slidetoShow;
-            console.log(typeof btnPrev)
+           
             if(btnPrev) {
                 
                 const prevBtn = slideWrapper.querySelector(btnPrev)
@@ -17,7 +17,7 @@ const slider = (wrapper, slider, sliderItem, slidetoShow, delay, dir = 1, btnPre
                     position++;
                 })
             }else {
-                console.log('Слайдер без кнопки');
+                
             }
             
             
@@ -28,11 +28,6 @@ const slider = (wrapper, slider, sliderItem, slidetoShow, delay, dir = 1, btnPre
                     item.style.width = slideheight + 'px';
                 }
             })
-            
-              
-            
-                
-           
             
         const startSlideShow = () => {
                 interval = setInterval(() => {
@@ -45,12 +40,13 @@ const slider = (wrapper, slider, sliderItem, slidetoShow, delay, dir = 1, btnPre
             }, delay)
             
         }
+
         startSlideShow();
 
-            container.addEventListener('mouseover', (e) => {
+            slideWrapper.addEventListener('mouseover', (e) => {
                 clearInterval(interval);
             })
-            container.addEventListener('mouseout', startSlideShow)
+            slideWrapper.addEventListener('mouseout', startSlideShow)
 }
 
 export default slider

@@ -96,6 +96,22 @@ h4 {
   border: 2px solid #c51abb;
 }
 
+.animation {
+  animation-name: anim;
+  transition: all 1s;
+  animation-duration: 3s;
+}
+
+@keyframes anim {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .button-transparent:before {
   content: '';
   background: url("../img/camera.svg") no-repeat center;
