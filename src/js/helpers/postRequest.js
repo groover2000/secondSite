@@ -4,9 +4,24 @@ const postRequest = async (url = '', data = {test: 'false'}) => {
         method: 'POST',
         body: data
     })
-  
-    return response
+
+    if(!response.ok) {
+        throw new Error('ОШИБКА отправки на сервер')
+    }
+    
+    return await res.text();
    
 }
 
-export default postRequest
+const getRequest = async (url) => {
+    const response = await fetch(url);
+
+    if(!response.ok) {
+
+        throw new Error('ОШИБКА отпрвки GET на сервер');
+    }
+
+    return await response.json();
+}
+
+export  {postRequest, getRequest};
