@@ -1,4 +1,4 @@
-const postRequest = async (url = '', data = {test: 'false'}) => {
+const postRequest = async (url = '', data = '') => {
 
     const response = await fetch(url, {
         method: 'POST',
@@ -9,7 +9,7 @@ const postRequest = async (url = '', data = {test: 'false'}) => {
         throw new Error('ОШИБКА отправки на сервер')
     }
     
-    return await res.text();
+    return await response.text();
    
 }
 
